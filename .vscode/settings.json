@@ -1,0 +1,8 @@
+{
+    "python.testing.pytestArgs": [
+        "affinity_model"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "debugpy.debugJustMyCode": true,
+}

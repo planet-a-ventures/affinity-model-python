@@ -88,6 +88,14 @@
     test-all
   '';
 
+  scripts.test-watch.exec = ''
+    ptw .
+  '';
+
+  scripts.test-update-snapshots.exec = ''
+    pytest --snapshot-update
+  '';
+
   scripts.build.exec = ''
     uv build
   '';
