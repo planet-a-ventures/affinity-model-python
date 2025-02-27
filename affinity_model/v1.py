@@ -1,21 +1,16 @@
 from enum import IntEnum
-from inspect import get_annotations
-from pydantic import BaseModel, Field, model_serializer
-from typing import ClassVar, List, Annotated, get_args
+from pydantic import BaseModel, Field
+from typing import List, Annotated
 from datetime import datetime
-
-from dlt.common.libs.pydantic import DltConfig
-
-from .v2 import ChatMessage, PhoneCall, Email, Meeting
 
 
 class NoteType(IntEnum):
     PLAIN_TEXT = 0
+    EMAIL = 1
+    """Deprecated"""
     HTML = 2
     AI_SUMMARY = 3
     """Can only be created by the Notetaker AI tool from Affinity."""
-    EMAIL = 1
-    """Deprecated"""
 
 
 class InteractionType(IntEnum):
@@ -29,43 +24,9 @@ class InteractionType(IntEnum):
     """Type specifying an email interaction."""
 
 
-def get_type_annotation(m: BaseModel):
-    annotations = get_annotations(m, eval_str=True)
-    return get_args(get_args(annotations["type"])[0])[0]
-
-
-InteractionTypeToLiteral: dict[InteractionType, str] = {
-    InteractionType.MEETING: get_type_annotation(Meeting),
-    InteractionType.CALL: get_type_annotation(PhoneCall),
-    InteractionType.CHAT_MESSAGE: get_type_annotation(ChatMessage),
-    InteractionType.EMAIL: get_type_annotation(Email),
-}
-
-
-def interaction_type_to_literal(i_type: InteractionType) -> str:
-    ret = InteractionTypeToLiteral[i_type]
-    if ret is None:
-        raise ValueError(f"Missing string type for {i_type}")
-    return ret
-
-
 class Note(
     BaseModel,
 ):
-    dlt_config: ClassVar[DltConfig] = {"skip_nested_types": True}
-
-    @model_serializer(mode="wrap")
-    def ser_model(self, nxt):
-        ret = nxt(self)
-        if self.interaction_type is not None:
-            ret["interaction_type"] = interaction_type_to_literal(
-                InteractionType(self.interaction_type)
-            )
-        # TODO: Note types are not available in the V2 OpenAPI spec, yet
-        # so we have to guess their enum representation; Fix this, once possible
-        ret["type"] = self.type.name.lower().replace("_", "-")
-        return ret
-
     """Represents a note object with metadata and associations."""
 
     id: Annotated[int, Field(examples=[1], ge=1, le=9007199254740991)]
