@@ -33,6 +33,9 @@
     ];
     black.enable = true;
     typos.enable = true;
+    typos.excludes = [
+      "spec/v2_spec.json"
+    ];
     yamllint.enable = true;
     yamlfmt.enable = true;
     commitizen.enable = true;

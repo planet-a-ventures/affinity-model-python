@@ -1,8 +1,3 @@
-from pydantic import BaseModel, model_serializer
-
-
-class MyBaseModel(BaseModel):
-    pass
-
+from .base import MyBaseModel
 
 __all__ = ["MyBaseModel", "v1", "v2"]
