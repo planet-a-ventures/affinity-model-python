@@ -10,7 +10,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent",
 ]
-version = "0.0.0"  # Will be dynamically set by uv-dynamic-versioning
+dynamic = ["version"]
 license = "MIT"
 
 # Main dependencies
