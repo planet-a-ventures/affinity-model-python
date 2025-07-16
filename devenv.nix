@@ -28,6 +28,9 @@
 
   git-hooks.hooks = {
     shellcheck.enable = true;
+    shellcheck.excludes = [
+      ".envrc"
+    ];
     black.enable = true;
     typos.enable = true;
     yamllint.enable = true;
