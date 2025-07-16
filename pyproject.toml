@@ -1,10 +1,20 @@
 [project]
 name = "affinity-model"
+description = "A data model for the Affinity CRM API"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = [
+authors = [
+    { name = "Planet A GmbH", email = "dev@planet-a.com" }
 ]
-dynamic = ["authors", "classifiers", "version", "description"]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+version = "0.0.0"  # Will be dynamically set by uv-dynamic-versioning
+license = "MIT"
+
+# Main dependencies
+dependencies = []
 
 [dependency-groups]
 dev = [
@@ -18,3 +28,23 @@ dev = [
 
 [tool.black]
 include = '.*py$'
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = [
+  "affinity_model"
+]
+exclude = ["affinity_model.tests"]
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "semver"
+strict = true
+bump = true
+latest-tag = true
