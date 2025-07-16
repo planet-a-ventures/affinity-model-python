@@ -1,8 +1,8 @@
 diff --git a/spec/v2_spec.json b/spec/v2_spec.json
-index cb89551..01987d9 100644
+index 4657617..2c160e5 100644
 --- a/spec/v2_spec.json
 +++ b/spec/v2_spec.json
-@@ -2377,7 +2377,6 @@
+@@ -3753,7 +3753,6 @@
            "emailAddress": {
              "description": "The user's email address",
              "type": "string",
@@ -10,7 +10,23 @@ index cb89551..01987d9 100644
              "examples": [
                "john.smith@contoso.com"
              ]
-@@ -2551,7 +2550,6 @@
+@@ -3943,7 +3942,6 @@
+               "string",
+               "null"
+             ],
+-            "format": "email",
+             "examples": [
+               "jane.doe@acme.co"
+             ]
+@@ -3978,7 +3976,6 @@
+           "emailAddress": {
+             "description": "The email address of the participant",
+             "type": "string",
+-            "format": "email",
+             "examples": [
+               "jane.doe@gmail.com"
+             ]
+@@ -4110,7 +4107,6 @@
                "string",
                "null"
              ],
@@ -18,12 +34,11 @@ index cb89551..01987d9 100644
              "examples": [
                "acme.co"
              ]
-@@ -2798,6 +2796,18 @@
-           "type"
+@@ -4358,6 +4354,19 @@
          ],
          "additionalProperties": false
-+      },
-+       "LinkedInEntry": {
+       },
++      "LinkedInEntry": {
 +        "title": "LinkedInEntry",
 +        "type": "object",
 +        "properties": {
@@ -33,11 +48,13 @@ index cb89551..01987d9 100644
 +          "text": {
 +            "type": "string"
 +          }
-+        }
-       },
++        },
++        "additionalProperties": false
++      },
        "TextsValue": {
          "title": "TextsValue",
-@@ -2810,13 +2820,23 @@
+         "type": "object",
+@@ -4369,13 +4378,23 @@
            },
            "data": {
              "description": "The value for many strings",
@@ -49,34 +66,26 @@ index cb89551..01987d9 100644
 -              "type": "string"
 -            }
 +            "oneOf":[
-+                {
-+                    "type": "array",
-+                    "items": {
-+                        "$ref":"#/components/schemas/LinkedInEntry"
-+                    }
-+                },
-+                {
-+                    "type": "array",
-+                    "items": {
-+                        "type": "string"
-+                    }
-+                },
-+                {
-+                    "type": "null"
++              {
++                "type": "array",
++                "items": {
++                    "$ref":"#/components/schemas/LinkedInEntry"
 +                }
++              },
++              {
++                "type": "array",
++                "items": {
++                  "type": "string"
++                }
++              },
++              {
++                "type": "null"
++              }
 +            ]
            }
          },
          "required": [
-@@ -2905,7 +2925,6 @@
-               "string",
-               "null"
-             ],
--            "format": "email",
-             "examples": [
-               "jane.doe@acme.co"
-             ]
-@@ -3004,7 +3023,6 @@
+@@ -4496,7 +4515,6 @@
                "string",
                "null"
              ],
@@ -84,7 +93,7 @@ index cb89551..01987d9 100644
              "examples": [
                "john.smith@contoso.com"
              ]
-@@ -3716,7 +3734,6 @@
+@@ -5208,7 +5226,6 @@
                "string",
                "null"
              ],
@@ -92,35 +101,7 @@ index cb89551..01987d9 100644
              "examples": [
                "acme.co"
              ]
-@@ -3725,8 +3742,7 @@
-             "description": "All of the company's domains",
-             "type": "array",
-             "items": {
--              "type": "string",
--              "format": "hostname"
-+              "type": "string"
-             },
-             "examples": [
-               [
-@@ -3813,7 +3829,7 @@
-               "string",
-               "null"
-             ],
--            "format": "url",
-+            "format": "uri",
-             "examples": [
-               "https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw"
-             ]
-@@ -3824,7 +3840,7 @@
-               "string",
-               "null"
-             ],
--            "format": "url",
-+            "format": "uri",
-             "examples": [
-               "https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA"
-             ]
-@@ -4807,7 +4823,6 @@
+@@ -6305,7 +6322,6 @@
                "string",
                "null"
              ],
@@ -128,7 +109,7 @@ index cb89551..01987d9 100644
              "examples": [
                "jane.doe@acme.co"
              ]
-@@ -4816,8 +4831,7 @@
+@@ -6314,8 +6330,7 @@
              "description": "All of the person's email addresses",
              "type": "array",
              "items": {

@@ -31,9 +31,11 @@ main() {
     lint-spec
 
     log "Generating code..."
+    rm -rf ../affinity_model/v2
+    mkdir -p ../affinity_model/v2
     datamodel-codegen \
         --input ../spec/v2_spec.json \
-        --output ../affinity_model/v2.py \
+        --output ../affinity_model/v2/ \
         --output-model-type pydantic_v2.BaseModel \
         --use-annotated \
         --use-union-operator \
@@ -42,7 +44,7 @@ main() {
         --input-file-type openapi \
         --field-constraints \
         --use-double-quotes \
-        --base-class ..MyBaseModel \
+        --base-class ..base.MyBaseModel \
         --disable-timestamp \
         --target-python-version "${python_version}"
 

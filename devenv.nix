@@ -28,37 +28,21 @@
 
   git-hooks.hooks = {
     shellcheck.enable = true;
+    shellcheck.excludes = [
+      ".envrc"
+    ];
     black.enable = true;
     typos.enable = true;
+    typos.excludes = [
+      "spec/v2_spec.json"
+    ];
     yamllint.enable = true;
     yamlfmt.enable = true;
     commitizen.enable = true;
     nixfmt-rfc-style.enable = true;
     markdownlint.enable = true;
-  };
-
-  # TODO: Replace with https://github.com/cachix/git-hooks.nix/pull/557 when merged
-  git-hooks.hooks.validate-spec = {
-    enable = true;
-
-    # The name of the hook (appears on the report table):
-    name = "Validate OpenAPI spec";
-
-    # The command to execute (mandatory):
-    entry = "openapi-spec-validator";
-
-    # The pattern of files to run on (default: "" (all))
-    # see also https://pre-commit.com/#hooks-files
-    files = "^spec/.*\\.(yaml|yml|json)$";
-
-    # The language of the hook - tells pre-commit
-    # how to install the hook (default: "system")
-    # see also https://pre-commit.com/#supported-languages
-    language = "system";
-
-    # Set this to false to not pass the changed files
-    # to the command (default: true):
-    pass_filenames = true;
+    openapi-spec-validator.enable = true;
+    openapi-spec-validator.files = "^spec/.*\\.(yaml|yml|json)$";
   };
 
   scripts.lint-spec.exec = ''
